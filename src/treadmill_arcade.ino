@@ -2,6 +2,7 @@ int POWER_BUTTON = D0;
 int INCREASE_SPEED = D1;
 int DECREASE_SPEED = D2;
 int WILD_CARD = D3;
+bool wildCardState = false;
 
 void setup()
 {
@@ -55,6 +56,16 @@ void slower()
 }
 void wildCard()
 {
-  Particle.publish("WILDCARD", "WHATEVER YOU WANT");
-  delay(100);
+  if (!wildCardState)
+  {
+    Particle.publish("WILDCARD_ON", "TURN IT ON");
+    delay(100);
+    wildCardState = true;
+  }
+  else
+  {
+    Particle.publish("WILDCARD_OFF", "TURN IT OFF");
+    delay(100);
+    wildCardState = false;
+  }
 }
